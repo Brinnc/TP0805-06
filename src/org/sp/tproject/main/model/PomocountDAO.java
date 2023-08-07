@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.sp.tproject.calendar.domain.Client;
 import org.sp.tproject.main.domain.Pomocount;
 import org.sp.tproject.main.domain.Pomodate;
 
@@ -52,7 +53,8 @@ public class PomocountDAO {
 		return result;
 	}
 	
-	public List selectPomo() {
+	//일일 누적 토마토수 가져오기 (client, pomodate 조인?)
+	public List selectPomo(Client client) { //호출하는 곳에서 client Dto를 넘겨주면 됨
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -62,9 +64,11 @@ public class PomocountDAO {
 		con=dbManager.connect();
 		
 		StringBuilder sb=new StringBuilder(); 
-		sb.append("select c.id, p.tomato, d.yy, d.mm, d.dd");
+		sb.append("select c.name, sum(p.tomato), d.yy, d.mm, d.dd ");
 		sb.append(" from pomocount p, pomodate d, client c");
 		sb.append(" where p.pomodate_idx=d.pomodate_idx and d.client_idx=c.client_idx");
+		sb.append(" group by c.name, d.yy, d.mm, d.dd");
+		
 		
 		try {
 			pstmt=con.prepareStatement(sb.toString());
@@ -75,12 +79,12 @@ public class PomocountDAO {
 				Pomocount countDto=new Pomocount();
 				Pomodate dateDto=new Pomodate();
 				
-				dateDto.setClient(null); //회원 정보를 넘겨받아야하는데...
+				dateDto.setClient(client); //회원 정보를 넘겨받아야하는데...
 				dateDto.setYy(rs.getInt("yy"));
 				dateDto.setMm(rs.getInt("mm"));
 				dateDto.setDd(rs.getInt("dd"));
 				countDto.setPomodate(dateDto);
-				countDto.setTomato(rs.getInt("tomato"));
+				countDto.setTomato(rs.getInt("sum(p.tomato)"));
 				
 				pomoList.add(countDto);
 			}

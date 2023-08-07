@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.sp.tproject.calendar.domain.Client;
@@ -70,7 +71,7 @@ public class MainFrame extends JFrame{
 		pages=new Page[3]; //4
 		pages[MAIN]=new MainPage(this);
 		pages[DIARY]=new DiaryPage();
-		pages[MYPAGE]=new MyPage();
+		pages[MYPAGE]=new MyPage(this);
 		//pages[LOGOUT]=new LogIn();
 			
 		//스타일
@@ -104,6 +105,10 @@ public class MainFrame extends JFrame{
 				public void mouseClicked(MouseEvent e) {
 					int index=naviIcon.indexOf(e.getSource()); //클릭한 네비아이콘이 몇번째 라벨인지
 					showHide(index);
+					
+					if(index==3) {
+						logout();
+					}
 				
 				}
 			});
@@ -120,7 +125,12 @@ public class MainFrame extends JFrame{
 		loginForm.setVisible(false);
 	}
 	public void logout() { //로그아웃 시 호출하는 메서드
-		
+		int result=JOptionPane.showConfirmDialog(this, "로그아웃 하시겠습니까?");
+		if(result==JOptionPane.OK_OPTION) {
+			loginForm.clientDTO=null;
+			this.setVisible(false);
+			loginForm.setVisible(true);
+		}
 	}
 	
 	public void createNavi() { //네비 생성 메서드

@@ -22,6 +22,8 @@ public class MainPage extends Page{
 	JPanel p_center; //타이머, 프로그레스바를 담을 중앙 패널
 	JPanel p_east; //현재시간, 토마토판을 담을 오른쪽 패널
 	
+	MusicPlayer mp; // music player
+    TodoList todo; // to-do list
 	CurrentTime ct; //현재 시간
 	Timer timer; //타이머
 	ProgressBarPan barPan; //프로그레스바 판
@@ -39,6 +41,8 @@ public class MainPage extends Page{
 		p_east=new JPanel();
 		
 		//컨텐츠 생성
+		mp = new MusicPlayer();
+	    todo = new TodoList();
 		ct=new CurrentTime();
 		pan=new PomoPan();
 		panscroll=new JScrollPane(pan);
@@ -68,6 +72,8 @@ public class MainPage extends Page{
 		p_east.setBorder(new LineBorder(Color.LIGHT_GRAY, 1));
 		
 		//조립
+		p_west.add(mp, BorderLayout.NORTH);
+	    p_west.add(todo, BorderLayout.SOUTH);
 		p_east.add(ct); //현재 시간을 오른쪽 영역 상단에 부착
 		p_east.add(panscroll); //토마토 판을 오른쪽 영역 하단에 부착
 		panscroll.setPreferredSize(new Dimension(280, 400));

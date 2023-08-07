@@ -13,7 +13,7 @@ public class ProgressBarPan extends JPanel implements Runnable {
 	Thread bb;
 
 	int num; // 프로그레스바 숫자
-	boolean flag; //쓰레드 플래그
+	boolean flag; //쓰레드 시작 플래그
 	boolean barFlag = false; // 프로그레스바 재생&멈춤 flag
 	
 
@@ -41,7 +41,7 @@ public class ProgressBarPan extends JPanel implements Runnable {
 		
 		while(true) {
 			try {
-				bb.sleep(15000);
+				bb.sleep(14850);
 				
 				if(barFlag) {
 					num++;
@@ -50,6 +50,7 @@ public class ProgressBarPan extends JPanel implements Runnable {
 					
 					if (num > 100) {
 						num = 0;
+						barFlag=false;
 						bar.setValue(num);
 						bar.setString(num+" %");
 					}
@@ -87,7 +88,11 @@ public class ProgressBarPan extends JPanel implements Runnable {
 	public void startBar() {
 		if(barFlag==false) {
 			barFlag = true;
+			
+			if(flag==false) { //현재 상태가 
 			bb.start();
+			flag=true;
+			}
 		}
 	}
 

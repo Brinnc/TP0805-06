@@ -1,3 +1,5 @@
+--현아님 DB
+--------------------------------------------------------------------------------------------------
 --테이블 스페이스 만들기
 --주의! 경로 수정 필요
 create tablespace pomodoro
@@ -37,6 +39,7 @@ insert into client(client_idx, name, id, pass, nickname, email)
 
 commit;
 
+--승아 DB
 --------------------------------------------------------------------------------------------------
 --날짜 테이블 만들기+외래키(client_idx)
 --------------------------------------------------------------------------------------------------
@@ -72,10 +75,59 @@ increment by 1
 start with 1;
 
 --------------------------------------------------------------------------------------------------
---회원별 날짜별 토마토 가져오기
+--회원별 날짜별 토마토 가져오기 (***이건 넣지 마세요 !!***)
 --c.id나 c.name
 select c.id, p.tomato, d.yy, d.mm, d.dd 
 from pomocount p, pomodate d, client c 
 where p.pomodate_idx=d.pomodate_idx and d.client_idx=c.client_idx;
 
+
+--수빈님 DB
+--------------------------------------------------------------------------------------------------
+--todolist 테이블 만들기
+
+CREATE TABLE todolist (
+    task_idx number PRIMARY KEY,
+    yy number NULL,
+    mm number NULL,
+    dd number NULL,
+    todo varchar2(50),
+    complete number DEFAULT 0 NULL,
+    client_idx number NULL,
+    CONSTRAINT fk_clkey FOREIGN KEY (client_idx) REFERENCES client(client_idx)
+);
+
+
+--todolist 시퀀스 만들기
+
+CREATE SEQUENCE task_idx START WITH 1 INCREMENT BY 1;
+
+--다래님 DB
+--------------------------------------------------------------------------------------------------
+----------------------------------
+-- 일정
+----------------------------------
+create table plan(
+  plan_idx number primary key 
+  , yy number 
+  , mm number 
+  , dd number 
+  , diary_title varchar2(40)
+  , diary_content clob
+  , filename varchar2(30)
+  
+  -- 누구의 일정?
+  , client_idx  number 
+  , constraint  fk_client_plan foreign key(client_idx) references client(client_idx)
+);
+
+create sequence seq_plan
+increment by 1
+start with 1;
+
+---------------------------------
+-- 이런 오류가 뜨면서 테이블이 만들어지지 않을때..
+-- unknown command beginning ", client_i..." - rest of line ignored.
+---------------------------------
+set sqlblanklines on;
 
