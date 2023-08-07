@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import org.sp.tproject.calendar.domain.Client;
 import org.sp.tproject.calendar.model.ClientDAO;
+import org.sp.tproject.calendar.view.DiaryPage;
 import org.sp.tproject.main.view.MainFrame;
 
 import util.DBManager;
@@ -150,6 +151,13 @@ public class LoginForm extends JFrame{
 			JOptionPane.showMessageDialog(this, "로그인성공");
 			mainFrame.login();
 			mainFrame.client=clientDTO;
+			
+			MyPage myPage = (MyPage)mainFrame.pages[MainFrame.MYPAGE];
+			myPage.pomocountMyPage.model.getPomoList();
+			
+			DiaryPage diaryPage =(DiaryPage)mainFrame.pages[MainFrame.DIARY];
+			diaryPage.getPlanList();
+			diaryPage.printNum();
 		}
 		
 		

@@ -5,10 +5,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/teamProject"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TeamProject0807_fork lib"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TProject lib"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Team lib"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/TP lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

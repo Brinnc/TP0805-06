@@ -67,11 +67,13 @@ public class PomocountDAO {
 		sb.append("select c.name, sum(p.tomato), d.yy, d.mm, d.dd ");
 		sb.append(" from pomocount p, pomodate d, client c");
 		sb.append(" where p.pomodate_idx=d.pomodate_idx and d.client_idx=c.client_idx");
-		sb.append(" group by c.name, d.yy, d.mm, d.dd");
+		sb.append(" and c.client_idx=? ");
+		sb.append(" group by c.name, d.yy, d.mm, d.dd order by d.dd desc");
 		
 		
 		try {
 			pstmt=con.prepareStatement(sb.toString());
+			pstmt.setInt(1, client.getClient_idx());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {

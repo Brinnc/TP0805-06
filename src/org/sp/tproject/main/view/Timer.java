@@ -41,7 +41,7 @@ public class Timer extends JPanel implements Runnable {
 	Thread tt;
 
 	public boolean flag = false; // 타이머를 제어하는 플래그
-	public boolean bt_startFlag=true; //재생버튼 플래그
+	//public boolean bt_startFlag=true; //재생버튼 플래그
 
 	int timerType = 25; // 타이머 타입(25min/5min)을 결정하는 변수
 	boolean startFlag;//쓰레드의 start 상태를 판단하는 변수  

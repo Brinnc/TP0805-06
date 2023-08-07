@@ -17,7 +17,7 @@ public class MyPage extends Page{
 	JPanel p_west;
 	JPanel p_east; //회원별 일일 토마토 획득 수를 보여줄 테이블(pomocountMyPage)을 부착할 오른쪽 패널
 	
-	PomocountMyPage pomocountMyPage; 
+	public PomocountMyPage pomocountMyPage; 
 		
 	public MyPage(MainFrame mainFrame) {
 		this.mainFrame=mainFrame;

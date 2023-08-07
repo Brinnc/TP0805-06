@@ -41,7 +41,7 @@ public class ProgressBarPan extends JPanel implements Runnable {
 		
 		while(true) {
 			try {
-				bb.sleep(14850);
+				bb.sleep(14870);
 				
 				if(barFlag) {
 					num++;

@@ -1,5 +1,6 @@
 package org.sp.tproject.member.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -16,7 +17,7 @@ public class PomoModel extends AbstractTableModel{
 	
 	PomocountDAO pomocountDAO;
 	DBManager dbManager;
-	List< Pomocount> list;
+	List< Pomocount> list=new ArrayList< Pomocount>();
 	String[] column= {"연도", "월", "일", "토마토 총합"};
 	
 	public PomoModel(MainFrame mainFrame) {
@@ -27,6 +28,7 @@ public class PomoModel extends AbstractTableModel{
 	}
 	
 	public void getPomoList() {
+		System.out.println(mainFrame.client);
 		list=pomocountDAO.selectPomo(mainFrame.client); //여기서 클라이언트를 넘겨주기
 	}
 	

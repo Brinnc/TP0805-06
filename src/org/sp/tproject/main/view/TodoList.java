@@ -38,7 +38,7 @@ public class TodoList extends JPanel {
     public TodoList() {
         setLayout(new BorderLayout());
         setBackground(Color.PINK);
-        setPreferredSize(new Dimension(300, 350));
+        setPreferredSize(new Dimension(300, 330));
         
         try {
             model = new DefaultListModel<>(); // 초기화를 먼저 수행

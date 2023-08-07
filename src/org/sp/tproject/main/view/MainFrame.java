@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -21,6 +20,7 @@ import javax.swing.JPanel;
 
 import org.sp.tproject.calendar.domain.Client;
 import org.sp.tproject.calendar.model.ClientDAO;
+import org.sp.tproject.calendar.model.PlanDAO;
 import org.sp.tproject.calendar.view.DiaryPage;
 import org.sp.tproject.main.domain.Pomocount;
 import org.sp.tproject.main.domain.Pomodate;
@@ -43,7 +43,7 @@ public class MainFrame extends JFrame{
 	//네비게이션(라벨) 배열
 	ArrayList<JLabel> naviIcon;
 	
-	Page[] pages; //페이지 배열
+	public Page[] pages; //페이지 배열
 	public static final int MAIN=0;
 	public static final int DIARY=1;
 	public static final int MYPAGE=2;
@@ -59,6 +59,7 @@ public class MainFrame extends JFrame{
 	ClientDAO clientDAO=new ClientDAO(dbManager);
 	PomodateDAO pomodateDAO=new PomodateDAO(dbManager);
 	PomocountDAO pomocountDAO=new PomocountDAO(dbManager);
+	PlanDAO planDAO=new PlanDAO(dbManager);
 	
 	//보안 때문에 보통 메서드로 함 -> 바꾸자.. 근데 얘 지금 null임, 클라이언트DTO는 로그인폼에서 땡겨옴
 	public Client client;
@@ -70,7 +71,7 @@ public class MainFrame extends JFrame{
 		
 		pages=new Page[3]; //4
 		pages[MAIN]=new MainPage(this);
-		pages[DIARY]=new DiaryPage();
+		pages[DIARY]=new DiaryPage(this);
 		pages[MYPAGE]=new MyPage(this);
 		//pages[LOGOUT]=new LogIn();
 			
@@ -159,6 +160,13 @@ public class MainFrame extends JFrame{
 		for (int i = 0; i < pages.length; i++) {
 			if (i == n) { // 넘겨받은 매개변수와 i가 일치할때만 보이게함
 				pages[i].setVisible(true);
+				
+				//마이 페이지의 경우, 화면 갱신 필요
+				if(pages[i] instanceof MyPage) { 
+					MyPage myPage=(MyPage)pages[i];
+					myPage.pomocountMyPage.getList();
+					
+				}
 			} else {
 				pages[i].setVisible(false);
 			}
